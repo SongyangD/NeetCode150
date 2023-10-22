@@ -1,4 +1,4 @@
-# NeetCode150
+# NeetCode150 in Java
 Write down some notes when I solve these problems.  
 ## Link to the Qs list
 https://neetcode.io/practice
