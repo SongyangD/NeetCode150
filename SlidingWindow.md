@@ -21,3 +21,28 @@ class Solution {
     }
 }
 ```
+## 3. Longest Substring Without Repeating Characters
+Find the longest non-duplicated substring.
+
+### Learned
+The definition of our window is that all elements in the window are valid. The last character is the only character that could be duplicated in the current window. 
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int l = 0;
+        int max = 0;
+        
+        for (int i = 0; i < s.length(); i++){
+            while (set.contains(s.charAt(i))){
+                set.remove(s.charAt(l));
+                l++;
+            }
+            set.add(s.charAt(i));
+            max = Math.max(i-l+1, max);
+        }
+        return max;
+    }
+}
+```
