@@ -220,6 +220,47 @@ class Solution {
 ```
 
 ## 84. Largest Rectangle in Histogram - 7/7
+Find the max area in the histogram. 
+
+### Learned 
+- Monotonic Stack for questions that find the next greater / smaller 
+- The three-pass way is easier for me.
+
+```java
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[]nextSmaller = new int[n];
+        Arrays.fill(nextSmaller, n);
+
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n; i++){
+            while (!stack.isEmpty() && heights[stack.peek()] > heights[i]){
+                // stack.pop();
+                nextSmaller[stack.pop()] = i;
+            }
+            stack.push(i);
+        }
+        stack.clear();
+
+        int[]preSmaller = new int[n];
+        Arrays.fill(preSmaller, -1);
+        for (int i = 0; i < n; i++){
+            while (!stack.isEmpty() && heights[stack.peek()] > heights[i]){
+                stack.pop();
+            }
+            if (!stack.isEmpty()) preSmaller[i] = stack.peek();
+            stack.push(i);
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++){
+            int area = heights[i] * (nextSmaller[i] - preSmaller[i]-1);
+            res = Math.max(area, res);
+        }
+        return res;
+    }
+}
+```
 
 
 
